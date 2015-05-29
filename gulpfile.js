@@ -4,7 +4,10 @@ var gutil = require('gulp-util');
 // Setup a paths object to easily access paths
 var paths = {
   coffee: ['app/coffee/**/*.coffee'],
-  jade: ['app/jade/**/*.jade']
+  sass: ['app/sass/*.scss'],
+  jade: ['app/jade/**/*.jade'],
+  jade_partials: ['app/partials/**/*.jade'],
+  cjsx: ['app/coffee/components/**/*.cjsx']
 };
 
 // Compiles files, start the app and starts watching for changes
@@ -14,13 +17,22 @@ gulp.task('watch', ['serve'], function() {
   watch(paths.jade, function(){
     gulp.start('jade');
   });
+  watch(paths.jade_partials, function(){
+    gulp.start('jade');
+  });
   watch(paths.coffee, function(){
     gulp.start('coffee');
+  });
+  watch(paths.sass, function(){
+    gulp.start('sass');
+  });
+  watch(paths.cjsx, function(){
+    gulp.start('cjsx');
   });
 });
 
 // Task that compiles all files
-gulp.task('compile', ['jade', 'coffee']);
+gulp.task('compile', ['jade', 'coffee', 'sass', 'cjsx']);
 
 // Task to start electron app
 gulp.task('serve', ['compile'], function(){
@@ -44,6 +56,23 @@ gulp.task('coffee', function() {
     .pipe(coffee({bare: true}).on('error', gutil.log))
     .pipe(sourcemaps.write('maps'))
     .pipe(gulp.dest('www/javascripts'));
+});
+
+// Task to compile Sass files in app/sass to www/stylesheets
+var sass = require('gulp-sass');
+gulp.task('sass', function () {
+    gulp.src(paths.sass)
+        .pipe(sass())
+        .pipe(gulp.dest('www/stylesheets'));
+});
+
+// Task to compile coffee+jsx files to JS
+var cjsx = require('gulp-cjsx');
+gulp.task('cjsx', function() {
+  gulp.src(paths.cjsx)
+    .pipe(cjsx({bare: true}).on('error', gutil.log))
+    .pipe(sourcemaps.write('maps'))
+    .pipe(gulp.dest('www/javascripts/components'));
 });
 
 // Default task compiles, starts ionic server and watches files
