@@ -1,20 +1,9 @@
 doctype html
 html
   head
-    link(rel='stylesheet' href='http://yui.yahooapis.com/pure/0.6.0/pure-min.css')
-    link(rel='stylesheet' href='http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css')
+    link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css')
     link(rel='stylesheet' href='stylesheets/style.css')
+    link(rel='stylesheet' href='stylesheets/react-toggle.css')
     title Rbkit
-    script(src='https://fb.me/react-0.13.3.js')
-    script(src='https://fb.me/JSXTransformer-0.13.3.js')
-    script(src='javascripts/components/connect_button.js')
+    script(src='javascripts/components/routes.js')
   body
-    include ../partials/menu
-    h1 Hello World!
-    |     We are using io.js 
-    script.
-      document.write(process.version)
-    |     and Electron 
-    script.
-      document.write(process.versions['electron'])
-    | .

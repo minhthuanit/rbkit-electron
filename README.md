@@ -1,11 +1,13 @@
 Rbkit-Electron
 ==============
 
-This is an experimental project to test out :
+This is an experimental project to test out the following combination:
 
 * Electron for packaging the app
-* ReactJS(in coffeescript) for UI components
-* PureCSS for UI grid layout(using jade and sass)
+* ReactJS(in coffeescript + JSX)
+* Bootstrap (react-bootstrap) for UI components and grid layout
+* Jade for markup (not for JSX)
+* SCSS for stylesheets
 * Native node modules to read and parse data from rbkit-server (if need be).
 
 
