@@ -7,7 +7,8 @@ var paths = {
   sass: ['app/sass/*.scss'],
   jade: ['app/jade/**/*.jade'],
   jade_partials: ['app/partials/**/*.jade'],
-  cjsx: ['app/coffee/components/**/*.cjsx']
+  cjsx: ['app/coffee/components/**/*.cjsx'],
+  image: ['app/images/**/*']
 };
 
 // Compiles files, start the app and starts watching for changes
@@ -29,10 +30,13 @@ gulp.task('watch', ['serve'], function() {
   watch(paths.cjsx, function(){
     gulp.start('cjsx');
   });
+  watch(paths.image, function(){
+    gulp.start('image');
+  });
 });
 
 // Task that compiles all files
-gulp.task('compile', ['jade', 'coffee', 'sass', 'cjsx']);
+gulp.task('compile', ['jade', 'coffee', 'sass', 'cjsx', 'image']);
 
 // Task to start electron app
 gulp.task('serve', ['compile'], function(){
@@ -73,6 +77,14 @@ gulp.task('cjsx', function() {
     .pipe(cjsx({bare: true}).on('error', gutil.log))
     .pipe(sourcemaps.write('maps'))
     .pipe(gulp.dest('www/javascripts/components'));
+});
+
+// Task to compress images and move them to destination
+var image = require('gulp-image');
+gulp.task('image', function() {
+  gulp.src(paths.image)
+    .pipe(image())
+    .pipe(gulp.dest('www/images'));
 });
 
 // Default task compiles, starts ionic server and watches files
