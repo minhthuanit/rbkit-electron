@@ -1,6 +1,4 @@
 React = require('react')
-Router = require 'react-router'
-RouteHandler = Router.RouteHandler
 Navbar = require 'react-bootstrap/lib/Navbar'
 Nav = require 'react-bootstrap/lib/Nav'
 NavItem = require 'react-bootstrap/lib/NavItem'
@@ -22,7 +20,7 @@ module.exports = React.createClass
 
       <div className="container-fluid">
         <div className="row">
-          <RouteHandler/>
+          {this.props.children}
         </div>
       </div>
     </div>

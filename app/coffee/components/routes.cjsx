@@ -1,13 +1,15 @@
 React = require 'react'
-Router = require 'react-router'
-Route = Router.Route
+ReactRouter = require 'react-router'
+Router = ReactRouter.Router
+Route = ReactRouter.Route
 App = require('./javascripts/components/app.js')
 
 routes = (
-  <Route handler={App}>
-  </Route>
+  <Router>
+    <Route path="/" component={App}>
+    </Route>
+  </Router>
 )
 
 document.addEventListener "DOMContentLoaded", () ->
-  Router.run routes, Router.HashLocation, (Root) ->
-    React.render(<Root/>, document.body)
+  React.render(<Router>{routes}</Router>, document.body)
