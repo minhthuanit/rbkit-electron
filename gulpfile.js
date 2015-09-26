@@ -8,7 +8,8 @@ var paths = {
   jade: ['app/jade/**/*.jade'],
   jade_partials: ['app/partials/**/*.jade'],
   cjsx: ['app/coffee/components/**/*.cjsx'],
-  image: ['app/images/**/*']
+  image: ['app/images/**/*'],
+  vendor: ['vendor/**/*']
 };
 
 // Compiles files, start the app and starts watching for changes
@@ -33,10 +34,13 @@ gulp.task('watch', ['serve'], function() {
   watch(paths.image, function(){
     gulp.start('image');
   });
+  watch(paths.vendor, function(){
+    gulp.start('vendor');
+  });
 });
 
 // Task that compiles all files
-gulp.task('compile', ['jade', 'coffee', 'sass', 'cjsx', 'image']);
+gulp.task('compile', ['jade', 'coffee', 'sass', 'cjsx', 'image', 'vendor']);
 
 // Task to start electron app
 gulp.task('serve', ['compile'], function(){
@@ -85,6 +89,13 @@ gulp.task('image', function() {
   gulp.src(paths.image)
     .pipe(image())
     .pipe(gulp.dest('www/images'));
+});
+
+// Task to compile vendor assets to www/vendor
+var image = require('gulp-image');
+gulp.task('vendor', function() {
+  gulp.src(paths.vendor)
+    .pipe(gulp.dest('www/vendor'));
 });
 
 // Default task compiles, starts ionic server and watches files
