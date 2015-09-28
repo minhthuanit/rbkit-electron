@@ -6,8 +6,13 @@ Glyphicon = require 'react-bootstrap/lib/Glyphicon'
 Tooltip = require './tooltip.js'
 Connect = require './connect.js'
 Link = require('react-router').Link
+ConnectionStore = require('../flux/stores/connection_store')
+Reflux = require('reflux')
+DisconnectButton = require('./disconnect_button')
 
 module.exports = React.createClass
+  mixins: [ Reflux.connect(ConnectionStore, "status") ]
+
   render: ->
     <div>
       <nav className="navbar navbar-default">
@@ -22,11 +27,7 @@ module.exports = React.createClass
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul className="nav navbar-nav navbar-right">
               <li>
-                <a href="#">
-                  <Tooltip placement="bottom" content="Click to disconnect from server">
-                    <Glyphicon glyph="off"/>
-                  </Tooltip>
-                </a>
+                <DisconnectButton/>
               </li>
             </ul>
           </div>

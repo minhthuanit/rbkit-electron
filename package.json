@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "main": "www/javascripts/main.js",
   "devDependencies": {
-    "electron-prebuilt": "^0.26.1",
-    "electron-rebuild": "^0.2.0",
+    "electron-prebuilt": "^0.33.3",
+    "electron-rebuild": "^1.0.0",
     "gulp": "^3.8.11",
     "gulp-cjsx": "^3.0.0",
     "gulp-coffee": "^2.3.1",
@@ -17,11 +17,12 @@
   },
   "dependencies": {
     "chart.js": "^1.0.2",
-    "msgpack": "^0.2.6",
+    "msgpack": "^1.0.1",
     "react": "^0.13.3",
     "react-bootstrap": "^0.25.2",
     "react-chartjs": "^0.6.0",
     "react-router": "1.0.0-rc1",
-    "zmq": "^2.11.1"
+    "reflux": "^0.2.12",
+    "zmq": "justintulloss/zeromq.node"
   }
 }

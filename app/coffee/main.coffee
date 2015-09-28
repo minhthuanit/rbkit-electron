@@ -17,8 +17,8 @@ app.on 'ready', ->
   templatePath = "file://#{__dirname}/../"
   # Create the browser window.
   mainWindow = new BrowserWindow(
-    width: 800
-    height: 600)
+    width: 1000
+    height: 800)
   # and load the index.html of the app.
   mainWindow.loadUrl templatePath + 'index.html'
   # Open the devtools.
