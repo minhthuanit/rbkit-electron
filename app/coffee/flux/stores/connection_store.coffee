@@ -1,5 +1,10 @@
 Reflux = require('reflux')
+MessageFields = require('../../message_fields')
 ConnectionActions = require('../actions/connection_actions')
+EventTypes = require('../../event_types')
+MessageFields = require('../../message_fields')
+event_parser = require('../../events/event_parser')
+
 zmq = require 'zmq'
 msgpack = require 'msgpack'
 
@@ -14,15 +19,16 @@ ConectionStore = Reflux.createStore
     @req_socket = zmq.socket('req')
 
     @req_socket.on 'message', (message) =>
-      if message == "ok"
-        console.log(message)
-      else
+      if message != "ok"
         unpacked_message = msgpack.unpack message
-        console.log(unpacked_message)
-        if unpacked_message[0] == 8 #TODO: unpacked_messages should be cast using classes
+        if unpacked_message[MessageFields['event_type']] == EventTypes['handshake']
           @trigger({status: 'connected'})
 
-        #responses.push(unpacked_message)
+    @sub_socket.on 'message', (message) =>
+      unpacked_message = msgpack.unpack message
+      if unpacked_message[MessageFields['event_type']] == EventTypes['event_collection']
+        events = unpacked_message[MessageFields['payload']]
+        event_parser.parse(event) for event in events
 
     @sub_socket.connect("tcp://#{ip}:#{sub_port}")
     @sub_socket.subscribe ''
